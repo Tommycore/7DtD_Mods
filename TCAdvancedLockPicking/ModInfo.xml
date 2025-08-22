@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xml>
+  <Name value="TCAdvancedLockPicking" />
+  <DisplayName value="Advanced Lockpicking" />
+  <Description value="Expands on the basic lock picking mechanics, including several tiered lockpicks and the ability to pick any locked doors. Written for and tested with v2.2." />
+  <Author value="Tommycore" />
+  <Version value="1.0.0" />
+</xml>

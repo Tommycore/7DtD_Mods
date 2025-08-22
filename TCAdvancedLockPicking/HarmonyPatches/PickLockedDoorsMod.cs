@@ -19,7 +19,9 @@ namespace HarmonyPatches
 
         public void InitMod(Mod _modInstance)
         {
-            Harmony harmony = new Harmony(GetType().ToString());
+            Log.Out("[TC-ALP] Loading Patch: " + GetType());
+
+            Harmony harmony = new Harmony(nameof(PickLockedDoorsMod));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
 

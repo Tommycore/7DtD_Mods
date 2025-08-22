@@ -1,8 +1,0 @@
-Key,File,Type,UsedInMainMenu,NoTranslate,english,Context / Alternate Text,german,spanish,french,italian,japanese,koreana,polish,brazilian,russian,turkish,schinese,tchinese
-
-tcChallengeCategoryCombat,,,,,Combat,,,,,,,,,,,,,
-tcChallengeGroupMeleeKnives,,,,,Knives,,,,,,,,,,,,,
-tcChallengeSlice,,,,,Slice,,,,,,,,,,,,,
-tcChallengeSliceShort,,,,,Make Slashing attacks,,,,,,,,,,,,,
-tcChallengeSliceDesc,,,,,Maaaaakeeeee Slaaaaashiiiing Attaaaaacks,,,,,,,,,,,,,
-tcChallengeStab,,,,,Stab,,,,,,,,,,,,,

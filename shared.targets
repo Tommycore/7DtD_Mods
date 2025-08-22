@@ -1,0 +1,63 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- Path -->
+  <PropertyGroup>
+    <GamePath>C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\</GamePath>
+    <ModsPath>$(GamePath)Mods\</ModsPath>
+    <ManagedDataPath>$(GamePath)\7DaysToDie_Data\Managed\</ManagedDataPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AssemblyName>$(ProjectName)</AssemblyName>
+    <RootNamespace>$(ProjectName)</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+    <Platforms>AnyCPU</Platforms>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <!-- Stuff to Copy -->
+  <ItemGroup>
+    <None Update="ModInfo.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\Localization.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="UIAtlases\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Config\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <!-- Start Action -->
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+    <StartAction>Program</StartAction>
+    <StartProgram>$(GamePath)7DaysToDie.exe</StartProgram>
+    <StartArguments>-console -force-d3d11 -disablenativeinput -nogs -noeac -skipnewsscreen=true -skipintro -logfile</StartArguments>
+    <StartWorkingDirectory>$(GamePath)</StartWorkingDirectory>
+  </PropertyGroup>
+
+  <!-- References - Harmony -->
+  <ItemGroup Label="0Harmony">
+    <Reference Include="0Harmony">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ModsPath)0_TFP_Harmony\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+
+  <!-- References - Game DLLs -->
+  <ItemGroup>
+    <GameAssemblies Include="$(ManagedDataPath)**\*.dll" Exclude="$(ManagedDataPath)**\System*.dll" />
+    
+    <Reference Include="@(GameAssemblies)">
+      <SpecificVersion>false</SpecificVersion>
+      <HintPath>$(ManagedDataPath)**\*.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

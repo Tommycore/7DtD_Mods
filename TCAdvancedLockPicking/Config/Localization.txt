@@ -1,0 +1,4 @@
+Key,English
+
+resourceLockPickT0BobbyPinTC,Bobby Pin
+resourceLockPickT0BobbyPinTCDesc,Used to either style your hair or open simple locks. Prone to breaking.

@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="$(SolutionDir)shared.targets" />
+
+  <PropertyGroup>
+    <OutputPath>$(ModsPath)AdvancedLockpicking\</OutputPath>
+  </PropertyGroup>
+  
+</Project>

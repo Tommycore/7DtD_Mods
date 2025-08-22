@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<config>
+  
+  <append xpath="/items">
+
+    <!-- Tier 0: Bobby Pin -->
+    <item name="resourceLockPickT0BobbyPinTC">
+      <property name="HoldType" value="45"/>
+      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
+      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
+      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+      <property name="Material" value="Mmetal_weak"/>
+      <property name="Weight" value="1"/>
+      <property name="Stacknumber" value="100"/>
+      <property name="SellableToTrader" value="true"/>
+      <property name="EconomicValue" value="1"/>
+      <property name="EconomicBundleSize" value="10" />
+      <property name="Group" value="Tools/Traps"/>
+      <property name="UnlockedBy" value="craftingWorkstations"/>
+      <property name="SoundPickup" value="lockpicks_grab"/>
+      <property name="SoundPlace" value="lockpicks_place"/>
+    </item>
+
+    <!-- Tier 1: Plastic Lock Picks -->
+
+    <!-- Tier 2: Iron Lock Picks -->
+
+    <!-- Tier 3: Steel Lock Picks -->
+
+    <!-- Tier 4: Pentest Kit -->
+
+  </append>
+  
+</config>
