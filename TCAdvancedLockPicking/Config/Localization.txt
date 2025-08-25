@@ -1,4 +1,6 @@
 Key,English
 
+customDoor,Test Door
+customDoorDesc,Test Door Description
 resourceLockPickT0BobbyPinTC,Bobby Pin
 resourceLockPickT0BobbyPinTCDesc,Used to either style your hair or open simple locks. Prone to breaking.

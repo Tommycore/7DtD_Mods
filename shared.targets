@@ -33,10 +33,10 @@
   </ItemGroup>
 
   <!-- Start Action -->
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+  <PropertyGroup>
     <StartAction>Program</StartAction>
     <StartProgram>$(GamePath)7DaysToDie.exe</StartProgram>
-    <StartArguments>-console -force-d3d11 -disablenativeinput -nogs -noeac -skipnewsscreen=true -skipintro -logfile</StartArguments>
+    <StartArguments>-console -force-d3d11 -disablenativeinput -nogs -noeac -skipnewsscreen=true -skipintro -logfile -devstart</StartArguments>
     <StartWorkingDirectory>$(GamePath)</StartWorkingDirectory>
   </PropertyGroup>
 

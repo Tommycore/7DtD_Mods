@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<config>
+
+  <append xpath="/xui/ruleset">
+    <window_group name="devStartMainMenu">
+      <window name="mainMenu" />
+      <window name="mainMenuQuit" />
+    </window_group>
+  </append>
+  
+</config>

@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		shared.targets = shared.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCDevTools", "TCDevTools\TCDevTools.csproj", "{06498BFE-F113-4B2A-A56E-F56F24BE867E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

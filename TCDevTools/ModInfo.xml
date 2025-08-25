@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xml>
+  <Name value="TCDevTools" />
+  <DisplayName value="Development Tools" />
+  <Description value="Just some things to make my life easier." />
+  <Author value="Tommycore" />
+  <Version value="1.0.0" />
+</xml>
