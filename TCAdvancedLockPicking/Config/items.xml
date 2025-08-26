@@ -5,7 +5,7 @@
   <append xpath="/items">
 
     <!-- Tier 0: Bobby Pin -->
-    <item name="resourceLockPickT0BobbyPinTC">
+    <item name="resourceLockPickT0">
       <property name="HoldType" value="45"/>
       <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
       <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
@@ -23,7 +23,7 @@
     </item>
 
     <!-- Tier 1: Plastic Lock Picks -->
-    <item name="resourceLockPickT1PlasticLockPickTC">
+    <item name="resourceLockPickT1">
       <property name="HoldType" value="45"/>
       <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
       <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
@@ -42,7 +42,7 @@
     </item>
 
     <!-- Tier 2: Iron Lock Picks -->
-    <item name="resourceLockPickT2IronLockPickTC">
+    <item name="resourceLockPickT2">
       <property name="HoldType" value="45"/>
       <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
       <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
@@ -61,7 +61,7 @@
     </item>
 
     <!-- Tier 3: Steel Lock Picks -->
-    <item name="resourceLockPickT3SteelLockPickTC">
+    <item name="resourceLockPickT3">
       <property name="HoldType" value="45"/>
       <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
       <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
@@ -80,7 +80,7 @@
     </item>
 
     <!-- Tier 4: Pentest Kit -->
-    <item name="resourceLockPickT4PenTestKitTC">
+    <item name="resourceLockPickT4">
       <property name="HoldType" value="45"/>
       <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
       <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
