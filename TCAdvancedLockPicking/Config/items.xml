@@ -23,12 +23,80 @@
     </item>
 
     <!-- Tier 1: Plastic Lock Picks -->
+    <item name="resourceLockPickT1PlasticLockPickTC">
+      <property name="HoldType" value="45"/>
+      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
+      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
+      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+      <property name="Material" value="Mmetal_weak"/>
+      <property name="Weight" value="1"/>
+      <property name="Stacknumber" value="100"/>
+      <property name="SellableToTrader" value="true"/>
+      <property name="EconomicValue" value="1"/>
+      <property name="EconomicBundleSize" value="10" />
+      <property name="Group" value="Tools/Traps"/>
+      <property name="UnlockedBy" value="craftingWorkstations"/>
+      <property name="SoundPickup" value="lockpicks_grab"/>
+      <property name="SoundPlace" value="lockpicks_place"/>
+      <property name="CustomIcon" value="placeholderTC"/>
+    </item>
 
     <!-- Tier 2: Iron Lock Picks -->
+    <item name="resourceLockPickT2IronLockPickTC">
+      <property name="HoldType" value="45"/>
+      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
+      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
+      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+      <property name="Material" value="Mmetal_weak"/>
+      <property name="Weight" value="1"/>
+      <property name="Stacknumber" value="100"/>
+      <property name="SellableToTrader" value="true"/>
+      <property name="EconomicValue" value="1"/>
+      <property name="EconomicBundleSize" value="10" />
+      <property name="Group" value="Tools/Traps"/>
+      <property name="UnlockedBy" value="craftingWorkstations"/>
+      <property name="SoundPickup" value="lockpicks_grab"/>
+      <property name="SoundPlace" value="lockpicks_place"/>
+      <property name="CustomIcon" value="placeholderTC"/>
+    </item>
 
     <!-- Tier 3: Steel Lock Picks -->
+    <item name="resourceLockPickT3SteelLockPickTC">
+      <property name="HoldType" value="45"/>
+      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
+      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
+      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+      <property name="Material" value="Mmetal_weak"/>
+      <property name="Weight" value="1"/>
+      <property name="Stacknumber" value="100"/>
+      <property name="SellableToTrader" value="true"/>
+      <property name="EconomicValue" value="1"/>
+      <property name="EconomicBundleSize" value="10" />
+      <property name="Group" value="Tools/Traps"/>
+      <property name="UnlockedBy" value="craftingWorkstations"/>
+      <property name="SoundPickup" value="lockpicks_grab"/>
+      <property name="SoundPlace" value="lockpicks_place"/>
+      <property name="CustomIcon" value="placeholderTC"/>
+    </item>
 
     <!-- Tier 4: Pentest Kit -->
+    <item name="resourceLockPickT4PenTestKitTC">
+      <property name="HoldType" value="45"/>
+      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
+      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
+      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+      <property name="Material" value="Mmetal_weak"/>
+      <property name="Weight" value="1"/>
+      <property name="Stacknumber" value="100"/>
+      <property name="SellableToTrader" value="true"/>
+      <property name="EconomicValue" value="1"/>
+      <property name="EconomicBundleSize" value="10" />
+      <property name="Group" value="Tools/Traps"/>
+      <property name="UnlockedBy" value="craftingWorkstations"/>
+      <property name="SoundPickup" value="lockpicks_grab"/>
+      <property name="SoundPlace" value="lockpicks_place"/>
+      <property name="CustomIcon" value="placeholderTC"/>
+    </item>
 
   </append>
   
