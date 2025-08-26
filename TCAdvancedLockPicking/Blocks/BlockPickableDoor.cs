@@ -7,9 +7,9 @@ namespace Blocks
     {
         public override bool AllowBlockTriggers => true;
 
-        private static string PropLockPickItem => "LockPickItem";
+        private static string PropRequiredLockPickTier => "RequiredLockPickTier";
 
-        private string lockPickItem = "resourceLockPick";
+        private int requiredLockPickTier = 0;
 
         public new BlockActivationCommand[] cmds = new BlockActivationCommand[]
         {
@@ -22,7 +22,8 @@ namespace Blocks
         {
             base.Init();
 
-            base.Properties.ParseString(BlockPickableDoor.PropLockPickItem, ref lockPickItem);
+            Log.Out("[TC-ALP] Init - loading additional properties");
+            base.Properties.ParseInt(BlockPickableDoor.PropRequiredLockPickTier, ref requiredLockPickTier);
         }
 
         public override void OnBlockAdded(WorldBase _world, Chunk _chunk, Vector3i _blockPos, BlockValue _blockValue, PlatformUserIdentifierAbs _addedByPlayer)

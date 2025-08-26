@@ -20,7 +20,7 @@
     <block name="pickableDoor">
       <property name="Extends" value="exteriorHouseDoorWhite" />
       <property name="Class" value="Blocks.BlockPickableDoor, TCAdvancedLockPicking"/>
-      <property name="LockPickItem" value="resourceLockPick"/>
+      <property name="RequiredLockPickTier" value="2"/>
       <property name="LockPickTime" value="15"/>
       <property name="LockPickBreakChance" value="0.75"/>
       
