@@ -38,7 +38,6 @@
       <property name="UnlockedBy" value="craftingWorkstations"/>
       <property name="SoundPickup" value="lockpicks_grab"/>
       <property name="SoundPlace" value="lockpicks_place"/>
-      <property name="CustomIcon" value="placeholderTC"/>
     </item>
 
     <!-- Tier 2: Iron Lock Picks -->
@@ -57,7 +56,6 @@
       <property name="UnlockedBy" value="craftingWorkstations"/>
       <property name="SoundPickup" value="lockpicks_grab"/>
       <property name="SoundPlace" value="lockpicks_place"/>
-      <property name="CustomIcon" value="placeholderTC"/>
     </item>
 
     <!-- Tier 3: Steel Lock Picks -->
@@ -76,7 +74,6 @@
       <property name="UnlockedBy" value="craftingWorkstations"/>
       <property name="SoundPickup" value="lockpicks_grab"/>
       <property name="SoundPlace" value="lockpicks_place"/>
-      <property name="CustomIcon" value="placeholderTC"/>
     </item>
 
     <!-- Tier 4: Pentest Kit -->
@@ -95,7 +92,6 @@
       <property name="UnlockedBy" value="craftingWorkstations"/>
       <property name="SoundPickup" value="lockpicks_grab"/>
       <property name="SoundPlace" value="lockpicks_place"/>
-      <property name="CustomIcon" value="placeholderTC"/>
     </item>
 
   </append>
