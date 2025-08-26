@@ -19,14 +19,5 @@ namespace HarmonyPatches
             Harmony harmony = new Harmony(nameof(AdvancedLockPickingMod));
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
-
-        [HarmonyPatch(typeof(TEFeatureLockPickable), nameof(TEFeatureLockPickable.ShowLockpickUi))]
-        static class TEFeatureLockPickable_ShowLockpickUi
-        {
-            static void Prefix()
-            {
-                Log.Out("[TC-ALP] Showing Lockpicking UI from TEFeatureLockPickable");
-            }
-        }
     }
 }
