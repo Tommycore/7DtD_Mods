@@ -1,4 +1,5 @@
 ﻿using Audio;
+using TileEntities;
 using UnityEngine;
 
 namespace Blocks
@@ -20,6 +21,7 @@ namespace Blocks
 
         public override void Init()
         {
+            Log.Out("[TC-ALP] Init");
             base.Init();
 
             Log.Out("[TC-ALP] Init - loading additional properties");
@@ -28,14 +30,39 @@ namespace Blocks
 
         public override void OnBlockAdded(WorldBase _world, Chunk _chunk, Vector3i _blockPos, BlockValue _blockValue, PlatformUserIdentifierAbs _addedByPlayer)
         {
+            Log.Out("[TC-ALP] OnBlockAdded");
             base.OnBlockAdded(_world, _chunk, _blockPos, _blockValue, _addedByPlayer);
+
+            if (_world.IsEditor()
+                || _blockValue.ischild
+                || _world.GetTileEntity(_chunk.ClrIdx, _blockPos) is TileEntityPickableDoor tileEntityPickableDoor)
+            {
+                return;
+            }
+
+            tileEntityPickableDoor = new TileEntityPickableDoor(_chunk);
+            tileEntityPickableDoor.SetDisableModifiedCheck(true);
+            tileEntityPickableDoor.localChunkPos = World.toBlock(_blockPos);
+            tileEntityPickableDoor.SetLocked(BlockDoorSecure.IsDoorLockedMeta(_blockValue.meta));
+            tileEntityPickableDoor.SetDisableModifiedCheck(false);
+            tileEntityPickableDoor.isLocked = true;
+            tileEntityPickableDoor.RequiredLockPickTier = requiredLockPickTier;
+            _chunk.AddTileEntity(tileEntityPickableDoor);
         }
 
         public override BlockActivationCommand[] GetBlockActivationCommands(WorldBase _world, BlockValue _blockValue, int _clrIdx, Vector3i _blockPos, EntityAlive _entityFocusing)
         {
-            Debug.Log("[TC-ALP] GetBlockActivationCommands");
+            if (!(_world.GetTileEntity(_clrIdx, _blockPos) is TileEntitySecureDoor tileEntitySecureDoor))
+            {
+                Log.Warning("[TC-ALP] No TileEntitySecureDoor found");
+                return BlockActivationCommand.Empty;
+            }
 
-            cmds[0].enabled = !BlockDoor.IsDoorOpen(_blockValue.meta) && IsDoorLockedMeta(_blockValue.meta);
+            Log.Out("[TC-ALP] GetBlockActivationCommands");
+            Log.Out($"[TC-ALP] IsDoorOpen: {BlockDoor.IsDoorOpen(_blockValue.meta)}");
+            Log.Out($"[TC-ALP] IsDoorLocked: {tileEntitySecureDoor.IsLocked()}");
+
+            cmds[0].enabled = !BlockDoor.IsDoorOpen(_blockValue.meta) && tileEntitySecureDoor.IsLocked();
             cmds[1].enabled = BlockDoor.IsDoorOpen(_blockValue.meta);
             cmds[2].enabled = !BlockDoor.IsDoorOpen(_blockValue.meta);
 
@@ -44,7 +71,7 @@ namespace Blocks
 
         public override bool OnBlockActivated(string _commandName, WorldBase _world, int _cIdx, Vector3i _blockPos, BlockValue _blockValue, EntityPlayerLocal _player)
         {
-            Debug.Log("[TC-ALP] OnBlockActivated");
+            Log.Out("[TC-ALP] OnBlockActivated");
 
             if (_blockValue.ischild)
             {
@@ -53,16 +80,15 @@ namespace Blocks
                 return OnBlockActivated(_commandName, _world, _cIdx, parentPos, block, _player);
             }
 
-            TileEntitySecureDoor tileEntitySecureDoor = (TileEntitySecureDoor)_world.GetTileEntity(_cIdx, _blockPos);
-            if (tileEntitySecureDoor != null)
+            if (!(_world.GetTileEntity(_cIdx, _blockPos) is TileEntityPickableDoor tileEntityPickableDoor))
             {
-                Debug.Log("[TC-ALP] No TileEntitySecureDoorFound");
+                Log.Warning("[TC-ALP] No TileEntityPickableDoor found");
                 return false;
             }
 
             switch (_commandName)
             {
-                case "pick": return ExecutePickCommand(_player, tileEntitySecureDoor);
+                case "pick": return ExecutePickCommand(_player, tileEntityPickableDoor);
                 case "close": return ExecuteOpenCloseCommand(_world, _cIdx, _blockPos, _blockValue, _player);
                 case "open": return ExecuteOpenCloseCommand(_world, _cIdx, _blockPos, _blockValue, _player);
 
@@ -70,15 +96,19 @@ namespace Blocks
             }
         }
 
-        private bool ExecutePickCommand(EntityPlayerLocal _player, TileEntitySecureDoor tileEntitySecureDoor)
+        private bool ExecutePickCommand(EntityPlayerLocal _player, TileEntitySecureDoor _tileEntitySecureDoor)
         {
-            Debug.Log("[TC-ALP] ExecutePickCommand");
+            Log.Out("[TC-ALP] ExecutePickCommand");
 
             LocalPlayerUI playerUI = _player.PlayerUI;
-            ItemValue item = ItemClass.GetItem(lockPickItem, false);
+            int tierAvailable = GetHighestTierLockPickAvailable(playerUI);
 
-            if (playerUI.xui.PlayerInventory.GetItemCount(item) == 0)
+            Log.Out($"[TC-ALP] Highest tier lock pick found: {tierAvailable}");
+            Log.Out($"[TC-ALP] Lock pick tier {requiredLockPickTier} required");
+
+            if (requiredLockPickTier > tierAvailable)
             {
+                ItemValue item = ItemClass.GetItem($"resourceLockPickT{requiredLockPickTier}", false);
                 playerUI.xui.CollectedItemList.AddItemStack(new ItemStack(item, 0), true);
                 GameManager.ShowTooltip(_player, Localization.Get("ttLockpickMissing", false), false, false, 0f);
                 return true;
@@ -89,7 +119,7 @@ namespace Blocks
 
         private bool ExecuteOpenCloseCommand(WorldBase _world, int _cIdx, Vector3i _blockPos, BlockValue _blockValue, EntityPlayerLocal _player)
         {
-            Debug.Log("[TC-ALP] ExecuteOpenCloseCommand");
+            Log.Out("[TC-ALP] ExecuteOpenCloseCommand");
 
             bool flag = !BlockDoor.IsDoorOpen(_blockValue.meta);
             updateOpenCloseState(flag, _world, _blockPos, _cIdx, _blockValue, false);
@@ -97,7 +127,30 @@ namespace Blocks
             {
                 Manager.BroadcastPlayByLocalPlayer(_blockPos.ToVector3() + Vector3.one * 0.5f, flag ? openSound : closeSound);
             }
+
             return true;
+        }
+
+        private int GetHighestTierLockPickAvailable(LocalPlayerUI _playerUI)
+        {
+            for (int i = 4; i > -1; --i)
+            {
+                ItemValue item = ItemClass.GetItem($"resourceLockPickT{i}", false);
+
+                if (_playerUI.xui.PlayerInventory.GetItemCount(item) > 0)
+                {
+                    return i;
+                }
+            }
+
+            //if (playerUI.xui.PlayerInventory.GetItemCount(item) == 0)
+            //{
+            //    playerUI.xui.CollectedItemList.AddItemStack(new ItemStack(item, 0), true);
+            //    GameManager.ShowTooltip(_player, Localization.Get("ttLockpickMissing", false), false, false, 0f);
+            //    return true;
+            //}
+
+            return -1;
         }
     }
 }
