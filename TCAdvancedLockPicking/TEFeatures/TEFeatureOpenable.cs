@@ -72,9 +72,8 @@ namespace TEFeatures
 
             isOpen = !isOpen;
 
-            UpdateOpenCloseState(isOpen, _world, _blockPos, 0, _blockValue, false);
-            BlockEntityData blockEntity = ((World)_world).ChunkClusters[0].GetBlockEntity(_blockPos);
-            UpdateAnimState(blockEntity, isOpen);
+            UpdateOpenCloseState(isOpen, _world, _blockPos, _blockValue, false);
+            UpdateAnimState(_world, _blockPos, isOpen);
 
             if (_player != null)
             {
@@ -84,40 +83,35 @@ namespace TEFeatures
             return base.OnBlockActivated(_commandName, _world, _blockPos, _blockValue, _player);
         }
 
-        private void UpdateAnimState(BlockEntityData _ebcd, bool _bOpen)
+        private void UpdateAnimState(WorldBase _world, Vector3i _blockPos, bool _isOpen)
         {
-            if (_ebcd != null && _ebcd.bHasTransform)
+            BlockEntityData blockEntity = _world.ChunkClusters[0].GetBlockEntity(_blockPos);
+            if (blockEntity != null && blockEntity.bHasTransform)
             {
-                Animator[] componentsInChildren = _ebcd.transform.GetComponentsInChildren<Animator>();
+                Animator[] componentsInChildren = blockEntity.transform.GetComponentsInChildren<Animator>();
                 if (componentsInChildren != null)
                 {
                     for (int i = componentsInChildren.Length - 1; i >= 0; i--)
                     {
                         Animator animator = componentsInChildren[i];
                         animator.enabled = true;
-                        animator.SetBool(AnimatorDoorState.IsOpenHash, _bOpen);
+                        animator.SetBool(AnimatorDoorState.IsOpenHash, _isOpen);
                         animator.SetTrigger(AnimatorDoorState.OpenTriggerHash);
                     }
                 }
             }
         }
 
-        private void UpdateOpenCloseState(bool _bOpen, WorldBase _world, Vector3i _blockPos, int _cIdx, BlockValue _blockValue, bool _bOnlyLocal)
-        {
-            ChunkCluster chunkCluster = _world.ChunkClusters[_cIdx];
-            if (chunkCluster == null)
+        private void UpdateOpenCloseState(bool _isOpen, WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, bool _isOnlyLocal)
             {
+            _blockValue.meta = (byte)((_isOpen ? 1 : 0) | ((int)_blockValue.meta & -2));
+            if (!_isOnlyLocal)
+            {
+                _world.SetBlockRPC(0, _blockPos, _blockValue);
                 return;
             }
 
-            _blockValue.meta = (byte)((_bOpen ? 1 : 0) | ((int)_blockValue.meta & -2));
-            if (!_bOnlyLocal)
-            {
-                _world.SetBlockRPC(_cIdx, _blockPos, _blockValue);
-                return;
-            }
-
-            chunkCluster.SetBlockRaw(_blockPos, _blockValue);
+            _world.ChunkClusters[0]?.SetBlockRaw(_blockPos, _blockValue);
         }
     }
 }
