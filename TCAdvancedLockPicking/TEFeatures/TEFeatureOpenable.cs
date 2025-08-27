@@ -11,10 +11,13 @@ namespace TEFeatures
 {
     public class TEFeatureOpenable : TEFeatureAbs
     {
+        private ILockable lockFeature;
 
         public override void Init(TileEntityComposite _parent, TileEntityFeatureData _featureData)
         {
             base.Init(_parent, _featureData);
+
+            lockFeature = base.Parent.GetFeature<ILockable>();
         }
 
         public override string GetActivationText(WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityAlive _entityFocusing, string _activateHotkeyMarkup, string _focusedTileEntityName)
