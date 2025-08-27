@@ -7,6 +7,17 @@ namespace TEFeatures
     {
         private ILockable lockFeature;
 
+        private bool isOpen = false;
+        public bool IsOpen
+        {
+            get => isOpen;
+            set
+            {
+                isOpen = value;
+                base.SetModified();
+            }
+        }
+
         public override void Init(TileEntityComposite _parent, TileEntityFeatureData _featureData)
         {
             base.Init(_parent, _featureData);
@@ -33,11 +44,9 @@ namespace TEFeatures
         {
             base.UpdateBlockActivationCommands(ref _command, _commandName, _world, _blockPos, _blockValue, _entityFocusing);
 
-            bool isOpen = BlockDoor.IsDoorOpen(_blockValue.meta);
-
             _command.enabled =
-                base.CommandIs(_commandName, "open") && !isOpen
-                || base.CommandIs(_commandName, "close") && isOpen;
+                (base.CommandIs(_commandName, "open") && !isOpen)
+                || (base.CommandIs(_commandName, "close") && isOpen);
         }
 
         public override bool OnBlockActivated(ReadOnlySpan<char> _commandName, WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityPlayerLocal _player)
@@ -48,8 +57,6 @@ namespace TEFeatures
                     ? "close"
                     : string.Empty; // Invalid
 
-            bool isOpen = BlockDoor.IsDoorOpen(_blockValue.meta);
-
             if (string.IsNullOrEmpty(command))
             {
                 return false;
@@ -57,17 +64,14 @@ namespace TEFeatures
 
             if (command == "open")
             {
-                _blockValue.meta = (byte)((int)_blockValue.meta & -2);
+                IsOpen = true;
             }
-            else
+            else // command must be "close"
             {
-                _blockValue.meta |= 1;
+                IsOpen = false;
             }
 
-            isOpen = !isOpen;
-
-            UpdateOpenCloseState(isOpen, _world, _blockPos, _blockValue, false);
-            UpdateAnimState(_world, _blockPos, isOpen);
+            UpdateAnimState(_world, _blockPos);
 
             if (_player != null)
             {
@@ -77,35 +81,50 @@ namespace TEFeatures
             return base.OnBlockActivated(_commandName, _world, _blockPos, _blockValue, _player);
         }
 
-        private void UpdateAnimState(WorldBase _world, Vector3i _blockPos, bool _isOpen)
+        /// <summary>
+        /// Handles opening or closing the door visually
+        /// </summary>
+        /// <param name="_isForced">If true, skips animation and sets it to the final position</param>
+        private void UpdateAnimState(WorldBase _world, Vector3i _blockPos, bool _isForced = false)
         {
             BlockEntityData blockEntity = _world.ChunkClusters[0].GetBlockEntity(_blockPos);
-            if (blockEntity != null && blockEntity.bHasTransform)
+            if (blockEntity == null || !blockEntity.bHasTransform)
             {
-                Animator[] componentsInChildren = blockEntity.transform.GetComponentsInChildren<Animator>();
-                if (componentsInChildren != null)
+                return;
+            }
+
+            Animator[] componentsInChildren = blockEntity.transform.GetComponentsInChildren<Animator>();
+            if (componentsInChildren == null)
+            {
+                return;
+            }
+
+            for (int i = componentsInChildren.Length - 1; i >= 0; i--)
+            {
+                Animator animator = componentsInChildren[i];
+                animator.enabled = true;
+                animator.SetBool(AnimatorDoorState.IsOpenHash, IsOpen);
+                if (_isForced)
                 {
-                    for (int i = componentsInChildren.Length - 1; i >= 0; i--)
-                    {
-                        Animator animator = componentsInChildren[i];
-                        animator.enabled = true;
-                        animator.SetBool(AnimatorDoorState.IsOpenHash, _isOpen);
-                        animator.SetTrigger(AnimatorDoorState.OpenTriggerHash);
-                    }
+                    animator.Play(IsOpen ? AnimatorDoorState.OpenHash : AnimatorDoorState.CloseHash, 0, 1f);
+                }
+                else
+                {
+                    animator.SetTrigger(AnimatorDoorState.OpenTriggerHash);
                 }
             }
         }
 
-        private void UpdateOpenCloseState(bool _isOpen, WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, bool _isOnlyLocal)
-            {
-            _blockValue.meta = (byte)((_isOpen ? 1 : 0) | ((int)_blockValue.meta & -2));
-            if (!_isOnlyLocal)
-            {
-                _world.SetBlockRPC(0, _blockPos, _blockValue);
-                return;
-            }
+        public override void Read(PooledBinaryReader _br, TileEntity.StreamModeRead _eStreamMode, int _readVersion)
+        {
+            base.Read(_br, _eStreamMode, _readVersion);
+            isOpen = _br.ReadBoolean();
+        }
 
-            _world.ChunkClusters[0]?.SetBlockRaw(_blockPos, _blockValue);
+        public override void Write(PooledBinaryWriter _bw, TileEntity.StreamModeWrite _eStreamMode)
+        {
+            base.Write(_bw, _eStreamMode);
+            _bw.Write(isOpen);
         }
     }
 }
