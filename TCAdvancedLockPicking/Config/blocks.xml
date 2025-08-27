@@ -2,20 +2,21 @@
 
 <config>
 
-  <!--<append xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']/..">
+  <append xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']/..">
     <property class="CompositeFeatures">
-      <property class="TEFeatureLockable"/>
+      <property class="TEFeatureOpenable" />
+      <property class="TEFeatureLockable" />
       <property class="TEFeatureLockPickable">
-        <property name="LockPickTime" value="15"/>
-        <property name="LockPickItem" value="resourceLockPick"/>
-        <property name="LockPickBreakChance" value="0.1"/>
+        <property name="LockPickTime" value="15" />
+        <property name="LockPickItem" value="resourceLockPick" />
+        <property name="LockPickBreakChance" value="0.1" />
       </property>
     </property>
   </append>
-  
-  <setattribute xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']" name="value">CompositeTileEntity</setattribute>-->
 
-  <append xpath="/blocks">
+  <setattribute xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']" name="value">CompositeTileEntity</setattribute>
+
+  <!--<append xpath="/blocks">
     
     <block name="pickableDoor">
       <property name="Extends" value="exteriorHouseDoorWhite" />
@@ -27,6 +28,6 @@
       <property name="CustomIcon" value="placeholderTC"/>
     </block>
     
-  </append>
+  </append>-->
 
 </config>

@@ -19,5 +19,10 @@ namespace TileEntities
         public TileEntityPickableDoor(Chunk _chunk) : base(_chunk)
         {
         }
+
+        public override TileEntityType GetTileEntityType()
+        {
+            return TileEntityType.Composite;
+        }
     }
 }

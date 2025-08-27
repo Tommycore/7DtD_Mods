@@ -9,8 +9,10 @@ namespace Blocks
         public override bool AllowBlockTriggers => true;
 
         private static string PropRequiredLockPickTier => "RequiredLockPickTier";
+        private static string PropStartLockedChance => "StartLockedChance";
 
         private int requiredLockPickTier = 0;
+        private float startLockedChance = 0.5f;
 
         public new BlockActivationCommand[] cmds = new BlockActivationCommand[]
         {
@@ -26,6 +28,7 @@ namespace Blocks
 
             Log.Out("[TC-ALP] Init - loading additional properties");
             base.Properties.ParseInt(BlockPickableDoor.PropRequiredLockPickTier, ref requiredLockPickTier);
+            base.Properties.ParseFloat(BlockPickableDoor.PropRequiredLockPickTier, ref startLockedChance);
         }
 
         public override void OnBlockAdded(WorldBase _world, Chunk _chunk, Vector3i _blockPos, BlockValue _blockValue, PlatformUserIdentifierAbs _addedByPlayer)
@@ -43,26 +46,29 @@ namespace Blocks
             tileEntityPickableDoor = new TileEntityPickableDoor(_chunk);
             tileEntityPickableDoor.SetDisableModifiedCheck(true);
             tileEntityPickableDoor.localChunkPos = World.toBlock(_blockPos);
-            tileEntityPickableDoor.SetLocked(BlockDoorSecure.IsDoorLockedMeta(_blockValue.meta));
+            tileEntityPickableDoor.SetLocked(Random.value < startLockedChance);
             tileEntityPickableDoor.SetDisableModifiedCheck(false);
-            tileEntityPickableDoor.isLocked = true;
             tileEntityPickableDoor.RequiredLockPickTier = requiredLockPickTier;
             _chunk.AddTileEntity(tileEntityPickableDoor);
         }
 
         public override BlockActivationCommand[] GetBlockActivationCommands(WorldBase _world, BlockValue _blockValue, int _clrIdx, Vector3i _blockPos, EntityAlive _entityFocusing)
         {
-            if (!(_world.GetTileEntity(_clrIdx, _blockPos) is TileEntitySecureDoor tileEntitySecureDoor))
+            if (!(_world.GetTileEntity(_clrIdx, _blockPos) is TileEntityPickableDoor tileEntityPickableDoor))
             {
-                Log.Warning("[TC-ALP] No TileEntitySecureDoor found");
+                Log.Warning("[TC-ALP] No TileEntityPickableDoor found");
+                var te = _world.GetTileEntity(_clrIdx, _blockPos);
+                Log.Out($"[TC-ALP] Type: {te.GetType()}");
+                Log.Out($"[TC-ALP] TileEntityType: {te.GetTileEntityType()}");
+
                 return BlockActivationCommand.Empty;
             }
 
             Log.Out("[TC-ALP] GetBlockActivationCommands");
             Log.Out($"[TC-ALP] IsDoorOpen: {BlockDoor.IsDoorOpen(_blockValue.meta)}");
-            Log.Out($"[TC-ALP] IsDoorLocked: {tileEntitySecureDoor.IsLocked()}");
+            Log.Out($"[TC-ALP] IsDoorLocked: {tileEntityPickableDoor.IsLocked()}");
 
-            cmds[0].enabled = !BlockDoor.IsDoorOpen(_blockValue.meta) && tileEntitySecureDoor.IsLocked();
+            cmds[0].enabled = !BlockDoor.IsDoorOpen(_blockValue.meta) && tileEntityPickableDoor.IsLocked();
             cmds[1].enabled = BlockDoor.IsDoorOpen(_blockValue.meta);
             cmds[2].enabled = !BlockDoor.IsDoorOpen(_blockValue.meta);
 
@@ -96,7 +102,7 @@ namespace Blocks
             }
         }
 
-        private bool ExecutePickCommand(EntityPlayerLocal _player, TileEntitySecureDoor _tileEntitySecureDoor)
+        private bool ExecutePickCommand(EntityPlayerLocal _player, TileEntityPickableDoor _tileEntityPickableDoor)
         {
             Log.Out("[TC-ALP] ExecutePickCommand");
 
@@ -142,13 +148,6 @@ namespace Blocks
                     return i;
                 }
             }
-
-            //if (playerUI.xui.PlayerInventory.GetItemCount(item) == 0)
-            //{
-            //    playerUI.xui.CollectedItemList.AddItemStack(new ItemStack(item, 0), true);
-            //    GameManager.ShowTooltip(_player, Localization.Get("ttLockpickMissing", false), false, false, 0f);
-            //    return true;
-            //}
 
             return -1;
         }

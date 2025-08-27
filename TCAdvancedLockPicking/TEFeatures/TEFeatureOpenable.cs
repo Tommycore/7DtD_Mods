@@ -1,0 +1,120 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Audio;
+using UnityEngine;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
+
+namespace TEFeatures
+{
+    public class TEFeatureOpenable : TEFeatureAbs
+    {
+
+        public override void Init(TileEntityComposite _parent, TileEntityFeatureData _featureData)
+        {
+            base.Init(_parent, _featureData);
+        }
+
+        public override string GetActivationText(WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityAlive _entityFocusing, string _activateHotkeyMarkup, string _focusedTileEntityName)
+        {
+            PlayerActionsLocal playerInput = ((EntityPlayerLocal)_entityFocusing).playerInput;
+            string arg = playerInput.Activate.GetBindingXuiMarkupString(XUiUtils.EmptyBindingStyle.EmptyString, XUiUtils.DisplayStyle.Plain, null) + playerInput.PermanentActions.Activate.GetBindingXuiMarkupString(XUiUtils.EmptyBindingStyle.EmptyString, XUiUtils.DisplayStyle.Plain, null);
+            return string.Format(Localization.Get("useBlock", false), arg, _blockValue.Block.GetLocalizedBlockName());
+        }
+
+        public override void InitBlockActivationCommands(Action<BlockActivationCommand, TileEntityComposite.EBlockCommandOrder, TileEntityFeatureData> _addCallback)
+        {
+            base.InitBlockActivationCommands(_addCallback);
+
+            _addCallback(new BlockActivationCommand("close", "door", false, false), TileEntityComposite.EBlockCommandOrder.Normal, base.FeatureData);
+            _addCallback(new BlockActivationCommand("open", "door", false, false), TileEntityComposite.EBlockCommandOrder.Normal, base.FeatureData);
+        }
+
+        public override void UpdateBlockActivationCommands(ref BlockActivationCommand _command, ReadOnlySpan<char> _commandName, WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityAlive _entityFocusing)
+        {
+            base.UpdateBlockActivationCommands(ref _command, _commandName, _world, _blockPos, _blockValue, _entityFocusing);
+
+            bool isOpen = BlockDoor.IsDoorOpen(_blockValue.meta);
+
+            _command.enabled =
+                base.CommandIs(_commandName, "open") && !isOpen
+                || base.CommandIs(_commandName, "close") && isOpen;
+        }
+
+        public override bool OnBlockActivated(ReadOnlySpan<char> _commandName, WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityPlayerLocal _player)
+        {
+            string command = base.CommandIs(_commandName, "open")
+                ? "open"
+                : base.CommandIs(_commandName, "close")
+                    ? "close"
+                    : string.Empty; // Invalid
+
+            bool isOpen = BlockDoor.IsDoorOpen(_blockValue.meta);
+
+            if (string.IsNullOrEmpty(command))
+            {
+                return false;
+            }
+
+            if (command == "open")
+            {
+                _blockValue.meta = (byte)((int)_blockValue.meta & -2);
+            }
+            else
+            {
+                _blockValue.meta |= 1;
+            }
+
+            isOpen = !isOpen;
+
+            UpdateOpenCloseState(isOpen, _world, _blockPos, 0, _blockValue, false);
+            BlockEntityData blockEntity = ((World)_world).ChunkClusters[0].GetBlockEntity(_blockPos);
+            UpdateAnimState(blockEntity, isOpen);
+
+            if (_player != null)
+            {
+                //Manager.BroadcastPlayByLocalPlayer(_blockPos.ToVector3() + Vector3.one * 0.5f, isOpen ? this.openSound : this.closeSound);
+            }
+
+            return base.OnBlockActivated(_commandName, _world, _blockPos, _blockValue, _player);
+        }
+
+        private void UpdateAnimState(BlockEntityData _ebcd, bool _bOpen)
+        {
+            if (_ebcd != null && _ebcd.bHasTransform)
+            {
+                Animator[] componentsInChildren = _ebcd.transform.GetComponentsInChildren<Animator>();
+                if (componentsInChildren != null)
+                {
+                    for (int i = componentsInChildren.Length - 1; i >= 0; i--)
+                    {
+                        Animator animator = componentsInChildren[i];
+                        animator.enabled = true;
+                        animator.SetBool(AnimatorDoorState.IsOpenHash, _bOpen);
+                        animator.SetTrigger(AnimatorDoorState.OpenTriggerHash);
+                    }
+                }
+            }
+        }
+
+        private void UpdateOpenCloseState(bool _bOpen, WorldBase _world, Vector3i _blockPos, int _cIdx, BlockValue _blockValue, bool _bOnlyLocal)
+        {
+            ChunkCluster chunkCluster = _world.ChunkClusters[_cIdx];
+            if (chunkCluster == null)
+            {
+                return;
+            }
+
+            _blockValue.meta = (byte)((_bOpen ? 1 : 0) | ((int)_blockValue.meta & -2));
+            if (!_bOnlyLocal)
+            {
+                _world.SetBlockRPC(_cIdx, _blockPos, _blockValue);
+                return;
+            }
+
+            chunkCluster.SetBlockRaw(_blockPos, _blockValue);
+        }
+    }
+}
