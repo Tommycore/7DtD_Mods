@@ -66,12 +66,12 @@ namespace TEFeatures
             {
                 IsOpen = true;
             }
-            else // command must be "close"
+            else // command must be "close"<
             {
                 IsOpen = false;
             }
 
-            UpdateAnimState(_world, _blockPos);
+            UpdateAnimState();
 
             if (_player != null)
             {
@@ -81,21 +81,29 @@ namespace TEFeatures
             return base.OnBlockActivated(_commandName, _world, _blockPos, _blockValue, _player);
         }
 
+        public override void SetBlockEntityData(BlockEntityData _blockEntityData)
+        {
+            base.SetBlockEntityData(_blockEntityData);
+            UpdateAnimState();
+        }
+
         /// <summary>
         /// Handles opening or closing the door visually
         /// </summary>
         /// <param name="_isForced">If true, skips animation and sets it to the final position</param>
-        private void UpdateAnimState(WorldBase _world, Vector3i _blockPos, bool _isForced = false)
+        private void UpdateAnimState(bool _isForced = false)
         {
-            BlockEntityData blockEntity = _world.ChunkClusters[0].GetBlockEntity(_blockPos);
+            BlockEntityData blockEntity = Parent.GetChunk().GetBlockEntity(Parent.ToWorldPos());
             if (blockEntity == null || !blockEntity.bHasTransform)
             {
+                Log.Warning($"[TC-ALP] BlockEntityData not found or no transform - {Parent?.TeData?.Block?.GetBlockName()}");
                 return;
             }
 
             Animator[] componentsInChildren = blockEntity.transform.GetComponentsInChildren<Animator>();
             if (componentsInChildren == null)
             {
+                Log.Warning($"[TC-ALP] no Animator components in Children - {Parent?.TeData?.Block?.GetBlockName()}");
                 return;
             }
 
