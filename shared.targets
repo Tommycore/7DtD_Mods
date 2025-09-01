@@ -36,7 +36,7 @@
   <PropertyGroup>
     <StartAction>Program</StartAction>
     <StartProgram>$(GamePath)7DaysToDie.exe</StartProgram>
-    <StartArguments>-console -force-d3d11 -disablenativeinput -nogs -noeac -skipnewsscreen=true -skipintro -logfile -devstart</StartArguments>
+    <StartArguments>-console -force-d3d11 -disablenativeinput -nogs -noeac -skipnewsscreen=true -skipintro -devstart</StartArguments>
     <StartWorkingDirectory>$(GamePath)</StartWorkingDirectory>
   </PropertyGroup>
 

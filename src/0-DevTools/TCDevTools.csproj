@@ -3,7 +3,7 @@
   <Import Project="$(SolutionDir)shared.targets" />
 
   <PropertyGroup>
-    <OutputPath>$(ModsPath)DevTools\</OutputPath>
+    <OutputPath>$(ModsPath)0-DevTools\</OutputPath>
   </PropertyGroup>
 
 </Project>

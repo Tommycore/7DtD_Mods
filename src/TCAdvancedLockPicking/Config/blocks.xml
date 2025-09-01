@@ -5,12 +5,13 @@
   <append xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']/..">
     <property class="CompositeFeatures">
       <property class="TEFeatureOpenable" />
-      <property class="TEFeatureLockable" />
+      <property class="TEFeatureLockableTC" />
       <property class="TEFeatureLockPickable">
         <property name="LockPickTime" value="15" />
         <property name="LockPickItem" value="resourceLockPick" />
         <property name="LockPickBreakChance" value="0.1" />
       </property>
+      <property class="TEFeatureLoggable" />
     </property>
   </append>
 

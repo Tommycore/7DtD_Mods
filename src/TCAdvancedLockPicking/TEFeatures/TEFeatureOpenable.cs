@@ -45,8 +45,8 @@ namespace TEFeatures
             base.UpdateBlockActivationCommands(ref _command, _commandName, _world, _blockPos, _blockValue, _entityFocusing);
 
             _command.enabled =
-                (base.CommandIs(_commandName, "open") && !isOpen)
-                || (base.CommandIs(_commandName, "close") && isOpen);
+                (base.CommandIs(_commandName, "open") && CanOpen())
+                || (base.CommandIs(_commandName, "close") && CanClose());
         }
 
         public override bool OnBlockActivated(ReadOnlySpan<char> _commandName, WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityPlayerLocal _player)
@@ -66,7 +66,7 @@ namespace TEFeatures
             {
                 IsOpen = true;
             }
-            else // command must be "close"<
+            else // command must be "close"
             {
                 IsOpen = false;
             }
@@ -85,6 +85,16 @@ namespace TEFeatures
         {
             base.SetBlockEntityData(_blockEntityData);
             UpdateAnimState();
+        }
+
+        private bool CanOpen()
+        {
+            return !IsOpen && (lockFeature == null || !lockFeature.IsLocked());
+        }
+
+        private bool CanClose()
+        {
+            return IsOpen;
         }
 
         /// <summary>

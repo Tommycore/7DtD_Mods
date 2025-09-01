@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36408.4
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCAdvancedLockPicking", "TCAdvancedLockPicking\TCAdvancedLockPicking.csproj", "{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{089100B1-113F-4E66-888A-E83F3999EAFD}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		shared.targets = shared.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCDevTools", "TCDevTools\TCDevTools.csproj", "{06498BFE-F113-4B2A-A56E-F56F24BE867E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "0-DevTools", "src\0-DevTools\0-DevTools.csproj", "{976D52E7-D8F4-4AE4-B8EF-04B406064CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TCAdvancedLockPicking", "src\TCAdvancedLockPicking\TCAdvancedLockPicking.csproj", "{E8F64741-B38D-6015-4A33-49E39D970394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F90DEDCC-1469-4A61-B35C-652EDD04DFDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{06498BFE-F113-4B2A-A56E-F56F24BE867E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976D52E7-D8F4-4AE4-B8EF-04B406064CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976D52E7-D8F4-4AE4-B8EF-04B406064CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976D52E7-D8F4-4AE4-B8EF-04B406064CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976D52E7-D8F4-4AE4-B8EF-04B406064CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F64741-B38D-6015-4A33-49E39D970394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F64741-B38D-6015-4A33-49E39D970394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F64741-B38D-6015-4A33-49E39D970394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F64741-B38D-6015-4A33-49E39D970394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

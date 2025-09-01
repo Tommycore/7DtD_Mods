@@ -5,6 +5,18 @@ namespace TEFeatures
 {
     public class TEFeatureLoggable : TEFeatureAbs
     {
+        public override int EntityId
+        {
+            get
+            {
+                return Parent?.EntityId ?? -1;
+            }
+
+            set
+            {
+            }
+        }
+
         private string guid;
 
         public TEFeatureLoggable()
@@ -113,11 +125,11 @@ namespace TEFeatures
         {
             if (string.IsNullOrEmpty(message))
             {
-                Log.Out($"[TC-DT] - TEFLog - {from} ({guid})");
+                Log.Out($"[TC-DT] - TEFLog - {from} (EID: {EntityId} - guid: {guid})");
             }
             else
             {
-                Log.Out($"[TC-DT] - TEFLog - {from}: {message} ({guid})");
+                Log.Out($"[TC-DT] - TEFLog - {from}: {message} (EID: {EntityId} - guid: {guid})");
             }
         }
     }

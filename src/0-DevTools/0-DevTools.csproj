@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+<Import Project="$(SolutionDir)shared.targets" />
+
+<PropertyGroup>
+  <!-- Remove Prefix -->
+  <AssemblyName>DevTools</AssemblyName>
+  <RootNamespace>DevTools</RootNamespace>
+  
+  <OutputPath>$(ModsPath)0-DevTools\</OutputPath>
+</PropertyGroup>
+
+</Project>
