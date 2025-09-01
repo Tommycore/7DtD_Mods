@@ -6,7 +6,7 @@
     <property class="CompositeFeatures">
       <property class="TEFeatureOpenable" />
       <property class="TEFeatureLockableTC" />
-      <property class="TEFeatureLockPickable">
+      <property class="TEFeatureLockPickableTC">
         <property name="LockPickTime" value="15" />
         <property name="LockPickItem" value="resourceLockPick" />
         <property name="LockPickBreakChance" value="0.1" />
