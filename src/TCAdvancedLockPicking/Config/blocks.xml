@@ -11,7 +11,6 @@
         <property name="LockPickItem" value="resourceLockPick" />
         <property name="LockPickBreakChance" value="0.1" />
       </property>
-      <property class="TEFeatureLoggable" />
     </property>
   </append>
 
