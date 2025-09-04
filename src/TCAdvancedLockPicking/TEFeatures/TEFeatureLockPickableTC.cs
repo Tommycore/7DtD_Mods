@@ -115,7 +115,7 @@ namespace TEFeatures
 
             if (IsLockPickBreakingOnAttempt(_player, lockLevel, lockPickTier))
             {
-                alternateTime = _player.rand.RandomRange(0.1f, 0.9f) * pickPercentageLeft * effectivePickTimeMax;
+                alternateTime = _player.rand.RandomRange(0.3f, 0.95f) * pickTimeLeft;
             }
 
             TimerEventData timerEventData = new TimerEventData();
