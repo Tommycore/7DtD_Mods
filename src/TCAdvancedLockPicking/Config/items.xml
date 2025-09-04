@@ -30,7 +30,7 @@
       <property name="CustomIconTint" value="93, 184, 230"/>
       <property name="Material" value="Mplastics"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="500"/>
+      <property name="Stacknumber" value="50"/>
       <property name="EconomicValue" value="1"/>
       <property name="EconomicBundleSize" value="10" />
     </item>
@@ -42,7 +42,7 @@
       <property name="CustomIconTint" value="191, 170, 156"/>
       <property name="Material" value="Mmetal_medium"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="500"/>
+      <property name="Stacknumber" value="50"/>
       <property name="EconomicValue" value="5"/>
       <property name="EconomicBundleSize" value="10" />
     </item>
@@ -53,7 +53,7 @@
       <property name="CustomIcon" value="resourceLockPick"/>
       <property name="Material" value="Msteel"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="500"/>
+      <property name="Stacknumber" value="50"/>
       <property name="EconomicValue" value="20"/>
       <property name="EconomicBundleSize" value="10" />
       <property name="UnlockedBy" value="craftingWorkstations"/>
