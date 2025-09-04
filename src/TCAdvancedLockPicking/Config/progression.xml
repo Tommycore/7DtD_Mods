@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<config>
+
+  <!-- Lockpick T0 is unlocked from the start -->
+
+  <!-- Lockpick Tier 1 -->
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='cntDewCollector,forge']" name="unlock_level">2,5,8</setAttribute>
+
+  <append xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='cntDewCollector,forge']">
+    <unlock_entry item="resourceLockPickT1" unlock_tier="3"/>
+  </append>
+    
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='cntDewCollector,forge']" name="icon">cntDewCollector,forge,resourceLockPickT1</setAttribute>
+  
+  <insertAfter xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/effect_group/passive_effect[@level='5,100']">
+    <passive_effect name="RecipeTagUnlocked" operation="base_set" level="8,100" value="1" tags="resourceLockPickT1"/>
+  </insertAfter>
+
+  <!-- Lockpick Tier 2 -->
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='workbench,resourceLockPick,toolBellows,toolAnvil']/unlock_entry[@item='resourceLockPick']" name="item">resourceLockPickT2</setAttribute>
+  
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='workbench,resourceLockPick,toolBellows,toolAnvil']" name="icon">workbench,resourceLockPickT2,toolBellows,toolAnvil</setAttribute>
+
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/effect_group/passive_effect[@tags='resourceLockPick']" name="tags">resourceLockPickT2</setAttribute>
+
+  <!-- Lockpick Tier 3 -->
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='cementMixer']" name="unlock_level">30,40</setAttribute>
+
+  <append xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='cementMixer']">
+    <unlock_entry item="resourceLockPickT3" unlock_tier="2"/>
+  </append>
+
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='cementMixer']" name="icon">cementMixer,resourceLockPickT3</setAttribute>
+
+  <insertAfter xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/effect_group/passive_effect[@level='30,100']">
+    <passive_effect name="RecipeTagUnlocked" operation="base_set" level="40,100" value="1" tags="resourceLockPickT3"/>
+  </insertAfter>
+
+  <!-- Lockpick Tier 3 Bundle -->
+  <setAttribute xpath="/progression/perks/book[@name='perkGreatHeistComplete']/effect_group/passive_effect[@name='RecipeTagUnlocked']" name="tags">resourceLockPickT3Bundle</setAttribute>
+  <remove xpath="/progression/perks/book[@name='perkGreatHeistComplete']/effect_group/passive_effect[@name='LootQuantity']" />
+  <append xpath="/progression/perks/book[@name='perkGreatHeistComplete']/effect_group">
+    <passive_effect name="LootQuantity" operation="perc_add" level="1" value=".2" tags="resourceLockPickT0"/>
+    <passive_effect name="LootQuantity" operation="perc_add" level="1" value=".2" tags="resourceLockPickT1"/>
+    <passive_effect name="LootQuantity" operation="perc_add" level="1" value=".2" tags="resourceLockPickT2"/>
+    <passive_effect name="LootQuantity" operation="perc_add" level="1" value=".2" tags="resourceLockPickT3"/>
+    <passive_effect name="LootQuantity" operation="perc_add" level="1" value=".2" tags="resourceLockPickT4"/>
+  </append>
+
+  <!-- Lockpick Tier 4 -->
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='chemistryStation']" name="unlock_level">50,60</setAttribute>
+
+  <append xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='chemistryStation']">
+    <unlock_entry item="resourceLockPickT4" unlock_tier="2"/>
+  </append>
+
+  <setAttribute xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/display_entry[@icon='chemistryStation']" name="icon">chemistryStation,resourceLockPickT4</setAttribute>
+
+  <insertAfter xpath="/progression/crafting_skills/crafting_skill[@name='craftingWorkstations']/effect_group/passive_effect[@level='50,100']">
+    <passive_effect name="RecipeTagUnlocked" operation="base_set" level="60,100" value="1" tags="resourceLockPickT4"/>
+  </insertAfter>
+
+</config>

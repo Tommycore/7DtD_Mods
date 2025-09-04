@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<config>
+  <setAttribute xpath="/traders/trader_item_groups/trader_item_group[@name='generalResources']/item[@name='resourceLockPicking']" name="name">resourceLockPickingT2</setAttribute>
+</config>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<config>
+  <!-- Remove original recipes -->
+  <remove xpath="/recipes/recipe[@name='resourceLockPick']" />
+  <remove xpath="/recipes/recipe[@name='resourceLockPickBundle']" />
+
+  <append xpath="/recipes">
+
+    <!-- T0 -->
+    <recipe name="resourceLockPickT0" craft_time="5" count="1">
+      <ingredient name="resourceScrapIron" count="5"/>
+    </recipe>
+    
+    <!-- T1 -->
+    <recipe name="resourceLockPickT1" count="1" craft_time="10" craft_area="workbench" tags="learnable,workbenchCrafting">
+      <ingredient name="resourceScrapPolymers" count="5"/>
+    </recipe>
+
+    <!-- T2 -->
+    <recipe name="resourceLockPickT2" count="1" material_based="true" craft_time="20" craft_area="forge" tags="learnable,workbenchCrafting">
+      <ingredient name="unit_iron" count="5"/>
+      <ingredient name="unit_clay" count="5"/>
+    </recipe>
+
+    <!-- T3 -->
+    <recipe name="resourceLockPickT3" count="1" craft_time="30" craft_area="workbench" tags="learnable,workbenchCrafting">
+      <ingredient name="resourceForgedSteel" count="2"/>
+      <ingredient name="resourceMechanicalParts" count="2"/>
+    </recipe>
+
+    <!-- T3 Bundle -->
+    <recipe name="resourceLockPickT3Bundle" count="1" craft_time="300" craft_area="workbench" tags="learnable,workbenchCrafting">
+      <ingredient name="resourceForgedSteel" count="40"/>
+      <ingredient name="resourceMechanicalParts" count="40"/>
+    </recipe>
+
+    <!-- T4 -->
+    <recipe name="resourceLockPickT4" count="1" craft_time="45" craft_area="workbench" tags="learnable,workbenchCrafting">
+      <ingredient name="resourceForgedSteel" count="2"/>
+      <ingredient name="resourceLeather" count="1"/>
+      <ingredient name="resourceMechanicalParts" count="2"/>
+    </recipe>
+    
+  </append>
+  
+</config>

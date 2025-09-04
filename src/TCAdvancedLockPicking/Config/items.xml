@@ -33,6 +33,7 @@
       <property name="Stacknumber" value="50"/>
       <property name="EconomicValue" value="1"/>
       <property name="EconomicBundleSize" value="10" />
+      <property name="UnlockedBy" value="craftingWorkstations"/>
     </item>
 
     <!-- Tier 2: Iron Lock Picks -->
@@ -43,8 +44,9 @@
       <property name="Material" value="Mmetal_medium"/>
       <property name="Weight" value="1"/>
       <property name="Stacknumber" value="50"/>
-      <property name="EconomicValue" value="5"/>
+      <property name="EconomicValue" value="1"/>
       <property name="EconomicBundleSize" value="10" />
+      <property name="UnlockedBy" value="craftingWorkstations"/>
     </item>
 
     <!-- Tier 3: Steel Lock Picks -->
@@ -57,6 +59,25 @@
       <property name="EconomicValue" value="20"/>
       <property name="EconomicBundleSize" value="10" />
       <property name="UnlockedBy" value="craftingWorkstations"/>
+    </item>
+
+    <!-- Tier 3 Bundle: Steel Lock Picks -->
+    <item name="resourceLockPickT3Bundle">
+      <property name="Extends" value="resourceLockPickBundle" />
+      <property name="CustomIcon" value="resourceLockPick"/>
+      <property name="Material" value="Msteel"/>
+      <!-- STK ammobundle -->
+      <property name="Weight" value="50"/>
+      <property name="EconomicValue" value="1000"/>
+      <property name="UnlockedBy" value="perkGreatHeistComplete"/>
+      <!-- BOOK_PERK -->
+      <property class="Action0">
+        <property name="Class" value="OpenBundle"/>
+        <property name="Delay" value="0"/>
+        <property name="Sound_start" value="close_garbage"/>
+        <property name="Create_item" value="resourceLockPickT3"/>
+        <property name="Create_item_count" value="50"/>
+      </property>
     </item>
 
     <!-- Tier 4: Pentest Kit -->
