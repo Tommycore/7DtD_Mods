@@ -4,11 +4,13 @@ This modlet is meant to turn dungeon style PoIs back into nonlinear explorable p
 - 5 Tiers of lockpicks, from bobby pins to pentest kits. Higher tiers shorten picking time and have a lower chance to break. They will also lower the chance to cause an alarm, once that's implemented.
 
 # Planned features
-- Recipes for lockpicks
 - Move loot containers to the same system as doors
 - Expand Lockpicking perk
 - Alarm system
 - Refactoring PoIs in a way that loot isn't concentrated in a single room, but rather spread throughout the PoI
+
+# Known Bugs
+- The mod kills switches that open doors in PoIs. So when you get to the end loot room and expect to be able to make a quick run for it after hitting a switch - better have another exit ready.
 
 # Attributions
 Pentest Kit icon based on a picture by [Hans](https://pixabay.com/users/hans-2/)
