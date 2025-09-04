@@ -1,6 +1,12 @@
 Key,English
 
-pickableDoor,Test Door
-pickableDoorDesc,Test Door Description
-resourceLockPickT0BobbyPinTC,Bobby Pin
-resourceLockPickT0BobbyPinTCDesc,Used to either style your hair or open simple locks. Prone to breaking.
+resourceLockPickT0,"Bobby Pin"
+resourceLockPickT0Desc,"Used to either style your hair or open simple locks. Prone to breaking."
+resourceLockPickT1,"Cheap Lockpicks"
+resourceLockPickT1Desc,"It's more of a gimmick than anything else really."
+resourceLockPickT2,"Iron Lockpicks"
+resourceLockPickT2Desc,"Entry level tools used to get into things you're not supposed to."
+resourceLockPickT3,"Steel Lockpicks"
+resourceLockPickT3Desc,"Advanced tools for opening locks."
+resourceLockPickT4,"Pentest Kit"
+resourceLockPickT4Desc,"What the professionals use to circumvent high security locks."

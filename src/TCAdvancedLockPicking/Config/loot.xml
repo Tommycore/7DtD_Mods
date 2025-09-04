@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<config>
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupUtilityItems']/item[@name='resourceLockPick']" name="name">resourceLockPickT1</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='prefabQuestLoot']/item[@name='resourceLockPick']" name="name">resourceLockPickT1</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupQuestResourcesT0']/item[@name='resourceLockPick']" name="name">resourceLockPickT0</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupQuestResourcesT1']/item[@name='resourceLockPick']" name="name">resourceLockPickT1</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupQuestLockPicks']/item[@name='resourceLockPick']" name="name">resourceLockPickT1</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupJunk03']/item[@name='resourceLockPick']" name="name">resourceLockPickT0</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupPurse02']/item[@name='resourceLockPick']" name="name">resourceLockPickT2</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupRollingToolbox01']/item[@name='resourceLockPick']" name="name">resourceLockPickT2</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='groupLootChestBonusItems']/item[@name='resourceLockPick']" name="name">resourceLockPickT2</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='twitch_utilitylockpicks1']/item[@name='resourceLockPick']" name="name">resourceLockPickT3</setAttribute>
+
+    <setAttribute xpath="/lootcontainer/lootgroup[@name='twitch_utilitylockpicks2']/item[@name='resourceLockPick']" name="name">resourceLockPickT4</setAttribute>
+</config>

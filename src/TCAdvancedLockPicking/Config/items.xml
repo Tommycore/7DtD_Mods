@@ -1,99 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <config>
-  
+
+  <!-- Hide original lockpicks -->
+  <append xpath="/items/item[@name='resourceLockPick']">
+    <property name="CreativeMode" value="None"/>
+  </append>
+
+  <append xpath="/items/item[@name='resourceLockPickBundle']">
+    <property name="CreativeMode" value="None"/>
+  </append>
+
   <append xpath="/items">
 
     <!-- Tier 0: Bobby Pin -->
     <item name="resourceLockPickT0">
-      <property name="HoldType" value="45"/>
-      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
-      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
-      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
+      <property name="Extends" value="resourceLockPick" />
       <property name="Material" value="Mmetal_weak"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="100"/>
-      <property name="SellableToTrader" value="true"/>
+      <property name="Stacknumber" value="1000"/>
       <property name="EconomicValue" value="1"/>
-      <property name="EconomicBundleSize" value="10" />
-      <property name="Group" value="Tools/Traps"/>
-      <property name="UnlockedBy" value="craftingWorkstations"/>
-      <property name="SoundPickup" value="lockpicks_grab"/>
-      <property name="SoundPlace" value="lockpicks_place"/>
+      <property name="EconomicBundleSize" value="20" />
     </item>
 
     <!-- Tier 1: Plastic Lock Picks -->
     <item name="resourceLockPickT1">
-      <property name="HoldType" value="45"/>
-      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
-      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
-      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
-      <property name="Material" value="Mmetal_weak"/>
+      <property name="Extends" value="resourceLockPick" />
+      <property name="CustomIcon" value="resourceLockPick"/>
+      <property name="CustomIconTint" value="93, 184, 230"/>
+      <property name="Material" value="Mplastics"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="100"/>
-      <property name="SellableToTrader" value="true"/>
+      <property name="Stacknumber" value="500"/>
       <property name="EconomicValue" value="1"/>
       <property name="EconomicBundleSize" value="10" />
-      <property name="Group" value="Tools/Traps"/>
-      <property name="UnlockedBy" value="craftingWorkstations"/>
-      <property name="SoundPickup" value="lockpicks_grab"/>
-      <property name="SoundPlace" value="lockpicks_place"/>
     </item>
 
     <!-- Tier 2: Iron Lock Picks -->
     <item name="resourceLockPickT2">
-      <property name="HoldType" value="45"/>
-      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
-      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
-      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
-      <property name="Material" value="Mmetal_weak"/>
+      <property name="Extends" value="resourceLockPick" />
+      <property name="CustomIcon" value="resourceLockPick"/>
+      <property name="CustomIconTint" value="191, 170, 156"/>
+      <property name="Material" value="Mmetal_medium"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="100"/>
-      <property name="SellableToTrader" value="true"/>
-      <property name="EconomicValue" value="1"/>
+      <property name="Stacknumber" value="500"/>
+      <property name="EconomicValue" value="5"/>
       <property name="EconomicBundleSize" value="10" />
-      <property name="Group" value="Tools/Traps"/>
-      <property name="UnlockedBy" value="craftingWorkstations"/>
-      <property name="SoundPickup" value="lockpicks_grab"/>
-      <property name="SoundPlace" value="lockpicks_place"/>
     </item>
 
     <!-- Tier 3: Steel Lock Picks -->
     <item name="resourceLockPickT3">
-      <property name="HoldType" value="45"/>
-      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
-      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
-      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
-      <property name="Material" value="Mmetal_weak"/>
+      <property name="Extends" value="resourceLockPick" />
+      <property name="CustomIcon" value="resourceLockPick"/>
+      <property name="Material" value="Msteel"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="100"/>
-      <property name="SellableToTrader" value="true"/>
-      <property name="EconomicValue" value="1"/>
+      <property name="Stacknumber" value="500"/>
+      <property name="EconomicValue" value="20"/>
       <property name="EconomicBundleSize" value="10" />
-      <property name="Group" value="Tools/Traps"/>
       <property name="UnlockedBy" value="craftingWorkstations"/>
-      <property name="SoundPickup" value="lockpicks_grab"/>
-      <property name="SoundPlace" value="lockpicks_place"/>
     </item>
 
     <!-- Tier 4: Pentest Kit -->
     <item name="resourceLockPickT4">
-      <property name="HoldType" value="45"/>
-      <property name="Tags" value="junk,explosivesSkill,resourceLockPick,lockPickSkill"/>
-      <property name="Meshfile" value="@:Other/Items/Misc/sackPrefab.prefab"/>
-      <property name="DropMeshfile" value="@:Other/Items/Misc/sack_droppedPrefab.prefab"/>
-      <property name="Material" value="Mmetal_weak"/>
+      <property name="Extends" value="resourceLockPick" />
+      <property name="Material" value="MstainlessSteel"/>
       <property name="Weight" value="1"/>
-      <property name="Stacknumber" value="100"/>
-      <property name="SellableToTrader" value="true"/>
-      <property name="EconomicValue" value="1"/>
-      <property name="EconomicBundleSize" value="10" />
-      <property name="Group" value="Tools/Traps"/>
+      <property name="Stacknumber" value="20"/>
+      <property name="EconomicValue" value="10"/>
+      <property name="EconomicBundleSize" value="1" />
       <property name="UnlockedBy" value="craftingWorkstations"/>
-      <property name="SoundPickup" value="lockpicks_grab"/>
-      <property name="SoundPlace" value="lockpicks_place"/>
     </item>
 
   </append>
-  
+
 </config>
