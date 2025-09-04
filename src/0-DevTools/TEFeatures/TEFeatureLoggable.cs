@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 
-namespace TEFeatures
+namespace DevTools.TEFeatures
 {
     public class TEFeatureLoggable : TEFeatureAbs
     {
@@ -17,7 +17,7 @@ namespace TEFeatures
             }
         }
 
-        private string guid;
+        private readonly string guid;
 
         public TEFeatureLoggable()
         {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DevStartMenu
+namespace DevTools.DevStartMenu
 {
     public class XUiC_DevStartMainMenu : XUiController
     {
@@ -13,7 +13,7 @@ namespace DevStartMenu
         public override void Init()
         {
             base.Init();
-            XUiC_DevStartMainMenu.ID = base.WindowGroup.ID;
+            ID = WindowGroup.ID;
         }
     }
 }
