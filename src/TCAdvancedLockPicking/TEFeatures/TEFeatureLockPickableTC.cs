@@ -205,10 +205,11 @@ namespace TEFeatures
         private void EventData_Success(TimerEventData _timerData)
         {
             World world = GameManager.Instance.World;
-            EntityPlayerLocal entity = (EntityPlayerLocal)_timerData.Data;
+            LockPickingTimerData lockPickingTimerData = (LockPickingTimerData)_timerData.Data;
             Vector3i vector3i = base.Parent.ToWorldPos();
             BlockValue block = world.GetBlock(vector3i);
             lockFeature.SetLocked(false);
+
             if (!lockpickDowngradeBlock.isair)
             {
                 BlockValue blockValue = base.Parent.TeData.Block.LockpickDowngradeBlock;
@@ -221,7 +222,7 @@ namespace TEFeatures
             Manager.BroadcastPlayByLocalPlayer(vector3i.ToVector3() + Vector3.one * 0.5f, "Misc/unlocking");
             if (lockPickSuccessEvent != null)
             {
-                GameEventManager.Current.HandleAction(lockPickSuccessEvent, null, entity, false, vector3i, "", "", false, true, "", null);
+                GameEventManager.Current.HandleAction(lockPickSuccessEvent, null, lockPickingTimerData.Player, false, vector3i, "", "", false, true, "", null);
             }
 
             ResetEventData(_timerData);
