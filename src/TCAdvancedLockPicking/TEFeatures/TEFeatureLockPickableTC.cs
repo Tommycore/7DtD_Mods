@@ -118,18 +118,23 @@ namespace TEFeatures
                 alternateTime = _player.rand.RandomRange(0.3f, 0.95f) * pickTimeLeft;
             }
 
-            TimerEventData timerEventData = new TimerEventData();
-            timerEventData.CloseEvent += EventData_PlayerCanceled;
-            timerEventData.Data = new LockPickingTimerData() { Player = _player, TimeMax = effectivePickTimeMax };
-            timerEventData.Event += EventData_Success;
-            timerEventData.alternateTime = alternateTime;
-            timerEventData.AlternateEvent += EventData_Failure;
-
             LocalPlayerUI uiforPlayer = LocalPlayerUI.GetUIForPlayer(_player);
             uiforPlayer.windowManager.Open("timer", true, false, true);
             XUiC_Timer childByType = uiforPlayer.xui.GetChildByType<XUiC_Timer>();
+            TimerEventData timerEventData = PrepareTimer(_player, alternateTime, effectivePickTimeMax);
             childByType.SetTimer(effectivePickTimeMax, timerEventData, pickTimeLeft, "");
             Manager.BroadcastPlayByLocalPlayer(base.Parent.ToWorldPos().ToVector3() + Vector3.one * 0.5f, "Misc/unlocking");
+        }
+
+        private TimerEventData PrepareTimer(EntityPlayerLocal _player, float alternateTime, float effectivePickTimeMax)
+        {
+            TimerEventData timerEventData = new TimerEventData();
+            timerEventData.CloseEvent += OnPlayerCanceled;
+            timerEventData.Data = new LockPickingTimerData() { Player = _player, TimeMax = effectivePickTimeMax };
+            timerEventData.Event += OnPlayerSucceeded;
+            timerEventData.alternateTime = alternateTime;
+            timerEventData.AlternateEvent += OnPlayerFailed;
+            return timerEventData;
         }
 
         private float GetEffectivePickTimeMax(EntityPlayerLocal _player, int _lockLevel, int _lockPickTier)
@@ -150,7 +155,7 @@ namespace TEFeatures
             return normalisedRandomValue < effectiveLockpickBreakChance;
         }
 
-        private void EventData_PlayerCanceled(TimerEventData _timerData)
+        private void OnPlayerCanceled(TimerEventData _timerData)
         {
             LockPickingTimerData lockPickingTimerData = (LockPickingTimerData)_timerData.Data;
 
@@ -168,7 +173,7 @@ namespace TEFeatures
             GameManager.Instance.TEUnlockServer(0, vector3i, base.Parent.EntityId, false);
         }
 
-        private void EventData_Failure(TimerEventData _timerData)
+        private void OnPlayerFailed(TimerEventData _timerData)
         {
             LockPickingTimerData lockPickingTimerData = (LockPickingTimerData)_timerData.Data;
 
@@ -200,7 +205,7 @@ namespace TEFeatures
             GameManager.ShowTooltip(_player, Localization.Get("ttLockpickBroken", false), false, false, 0f);
         }
 
-        private void EventData_Success(TimerEventData _timerData)
+        private void OnPlayerSucceeded(TimerEventData _timerData)
         {
             World world = GameManager.Instance.World;
             LockPickingTimerData lockPickingTimerData = (LockPickingTimerData)_timerData.Data;
@@ -229,9 +234,9 @@ namespace TEFeatures
 
         private void ResetEventData(TimerEventData _timerData)
         {
-            _timerData.AlternateEvent -= EventData_PlayerCanceled;
-            _timerData.CloseEvent -= EventData_PlayerCanceled;
-            _timerData.Event -= EventData_Success;
+            _timerData.AlternateEvent -= OnPlayerCanceled;
+            _timerData.CloseEvent -= OnPlayerCanceled;
+            _timerData.Event -= OnPlayerSucceeded;
         }
 
         public float GetLockPickBreakChance(int baseLockDifficulty, int lockPickTier)
@@ -244,6 +249,10 @@ namespace TEFeatures
             return Math.Clamp(1.0f + 0.1f * GetChallengeRating(baseLockDifficulty, lockPickTier), 0.8f, 1.2f);
         }
 
+        /// <summary>
+        /// Searches the players inventory for available lockpicks
+        /// </summary>
+        /// <returns>The highest lockpick tier the player is carrying with them</returns>
         public int GetHighestLockpickTier(EntityPlayerLocal _player)
         {
             LocalPlayerUI playerUI = _player.PlayerUI;
