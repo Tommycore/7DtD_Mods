@@ -136,7 +136,6 @@ namespace TEFeatures
         {
             float basePickTime = 30.0f + 10.0f * lockFeature.LockDifficulty;
             float pickTimeFactorLockPick = GetLockPickTimeFactor(_lockLevel, _lockPickTier);
-            //float effectivePickTime = Math.Max(3.0f, EffectManager.GetValue(PassiveEffects.LockPickTime, _player.inventory.holdingItemItemValue, basePickTime * pickTimeFactorLockPick, _player, null, default(FastTags<TagGroup.Global>), true, true, true, true, true, 1, true, false));
             float effectivePickTime = Math.Max(3.0f, EffectManager.GetValue(PassiveEffects.LockPickTime, _player.inventory.holdingItemItemValue, basePickTime * pickTimeFactorLockPick, _player, null, default, true, true, true, true, true, 1, true, false));
 
             return effectivePickTime;
@@ -145,7 +144,6 @@ namespace TEFeatures
         private bool IsLockPickBreakingOnAttempt(EntityPlayerLocal _player, int _lockLevel, int _lockPickTier)
         {
             float lockPickBreakChance = GetLockPickBreakChance(_lockLevel, _lockPickTier);
-            //float effectiveLockpickBreakChance = EffectManager.GetValue(PassiveEffects.LockPickBreakChance, _player.inventory.holdingItemItemValue, lockPickBreakChance, _player, null, default(FastTags<TagGroup.Global>), true, true, true, true, true, 1, true, false);
             float effectiveLockpickBreakChance = EffectManager.GetValue(PassiveEffects.LockPickBreakChance, _player.inventory.holdingItemItemValue, lockPickBreakChance, _player, null, default, true, true, true, true, true, 1, true, false);
             float normalisedRandomValue = _player.rand.RandomRange(1f);
 
