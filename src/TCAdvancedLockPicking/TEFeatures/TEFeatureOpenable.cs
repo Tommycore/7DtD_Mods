@@ -1,13 +1,18 @@
 ﻿using System;
+using Audio;
+using Platform;
+using TEFeatures.Interfaces;
 using UnityEngine;
 
 namespace TEFeatures
 {
     public class TEFeatureOpenable : TEFeatureAbs
     {
-        private ILockable lockFeature;
+        public static string PropChanceToStartOpen => "ChanceToStartOpen";
+        public static string PropChanceToStartLocked => "ChanceToStartLocked";
+        public static string PropOpenSound => "OpenSound";
+        public static string PropCloseSound => "CloseSound";
 
-        private bool isOpen = false;
         public bool IsOpen
         {
             get => isOpen;
@@ -18,18 +23,40 @@ namespace TEFeatures
             }
         }
 
+        private ILockableTC lockFeature;
+        private bool isOpen = false;
+        private float chanceToStartOpen;
+        private float chanceToStartLocked;
+        private string openSound;
+        private string closeSound;
+        private bool isInitialised = false;
+
         public override void Init(TileEntityComposite _parent, TileEntityFeatureData _featureData)
         {
             base.Init(_parent, _featureData);
 
-            lockFeature = base.Parent.GetFeature<ILockable>();
+            lockFeature = base.Parent.GetFeature<ILockableTC>();
+
+            DynamicProperties props = _featureData.Props;
+            props.ParseFloat(PropChanceToStartOpen, ref chanceToStartOpen);
+            props.ParseFloat(PropChanceToStartLocked, ref chanceToStartLocked);
+
+            DynamicProperties parentProps = _parent.blockValue.Block.Properties;
+
+            parentProps.ParseString(PropOpenSound, ref openSound);
+            parentProps.ParseString(PropCloseSound, ref closeSound);
         }
 
         public override string GetActivationText(WorldBase _world, Vector3i _blockPos, BlockValue _blockValue, EntityAlive _entityFocusing, string _activateHotkeyMarkup, string _focusedTileEntityName)
         {
+            bool isDoorLocked = lockFeature != null && lockFeature.IsLocked();
             PlayerActionsLocal playerInput = ((EntityPlayerLocal)_entityFocusing).playerInput;
-            string arg = playerInput.Activate.GetBindingXuiMarkupString(XUiUtils.EmptyBindingStyle.EmptyString, XUiUtils.DisplayStyle.Plain, null) + playerInput.PermanentActions.Activate.GetBindingXuiMarkupString(XUiUtils.EmptyBindingStyle.EmptyString, XUiUtils.DisplayStyle.Plain, null);
-            return string.Format(Localization.Get("useBlock", false), arg, _blockValue.Block.GetLocalizedBlockName());
+            string actionButton = playerInput.Activate.GetBindingXuiMarkupString(XUiUtils.EmptyBindingStyle.EmptyString, XUiUtils.DisplayStyle.Plain, null) + playerInput.PermanentActions.Activate.GetBindingXuiMarkupString(XUiUtils.EmptyBindingStyle.EmptyString, XUiUtils.DisplayStyle.Plain, null);
+            string door = Localization.Get("door", false);
+
+            return isDoorLocked
+                ? string.Format(Localization.Get("tooltipLocked", false), actionButton, door)
+                : string.Format(Localization.Get("tooltipUnlocked", false), actionButton, door);
         }
 
         public override void InitBlockActivationCommands(Action<BlockActivationCommand, TileEntityComposite.EBlockCommandOrder, TileEntityFeatureData> _addCallback)
@@ -75,7 +102,7 @@ namespace TEFeatures
 
             if (_player != null)
             {
-                //Manager.BroadcastPlayByLocalPlayer(_blockPos.ToVector3() + Vector3.one * 0.5f, isOpen ? this.openSound : this.closeSound);
+                Manager.BroadcastPlayByLocalPlayer(_blockPos.ToVector3() + Vector3.one * 0.5f, isOpen ? openSound : closeSound);
             }
 
             return base.OnBlockActivated(_commandName, _world, _blockPos, _blockValue, _player);
@@ -84,6 +111,7 @@ namespace TEFeatures
         public override void SetBlockEntityData(BlockEntityData _blockEntityData)
         {
             base.SetBlockEntityData(_blockEntityData);
+            Initialize();
             UpdateAnimState();
         }
 
@@ -133,16 +161,35 @@ namespace TEFeatures
             }
         }
 
+        private void Initialize()
+        {
+            if (isInitialised || IsOwnedByLocalPlayer())
+            {
+                return;
+            }
+
+            isInitialised = true;
+            IsOpen = UnityEngine.Random.value < chanceToStartOpen;
+            lockFeature.InitializeLockStatus(IsOpen ? -1f : chanceToStartLocked);
+        }
+
+        private bool IsOwnedByLocalPlayer()
+        {
+            return PlatformManager.InternalLocalUserIdentifier?.Equals(base.Parent.Owner) ?? false;
+        }
+
         public override void Read(PooledBinaryReader _br, TileEntity.StreamModeRead _eStreamMode, int _readVersion)
         {
             base.Read(_br, _eStreamMode, _readVersion);
             isOpen = _br.ReadBoolean();
+            isInitialised = _br.ReadBoolean();
         }
 
         public override void Write(PooledBinaryWriter _bw, TileEntity.StreamModeWrite _eStreamMode)
         {
             base.Write(_bw, _eStreamMode);
             _bw.Write(isOpen);
+            _bw.Write(isInitialised);
         }
     }
 }

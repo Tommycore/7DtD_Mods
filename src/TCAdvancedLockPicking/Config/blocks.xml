@@ -4,7 +4,10 @@
 
   <append xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']/..">
     <property class="CompositeFeatures">
-      <property class="TEFeatureOpenable" />
+      <property class="TEFeatureOpenable">
+        <property name="ChanceToStartOpen" value="0.5" />
+        <property name="ChanceToStartLocked" value="0.5" />
+      </property>
       <property class="TEFeatureLockableTC">
         <property name="LockDifficulty" value="1" />
       </property>
@@ -13,19 +16,5 @@
   </append>
 
   <setattribute xpath="/blocks/block/property[@name='Class' and @value='DoorSecure']" name="value">CompositeTileEntity</setattribute>
-
-  <!--<append xpath="/blocks">
-    
-    <block name="pickableDoor">
-      <property name="Extends" value="exteriorHouseDoorWhite" />
-      <property name="Class" value="Blocks.BlockPickableDoor, TCAdvancedLockPicking"/>
-      <property name="RequiredLockPickTier" value="2"/>
-      <property name="LockPickTime" value="15"/>
-      <property name="LockPickBreakChance" value="0.75"/>
-      
-      <property name="CustomIcon" value="placeholderTC"/>
-    </block>
-    
-  </append>-->
 
 </config>

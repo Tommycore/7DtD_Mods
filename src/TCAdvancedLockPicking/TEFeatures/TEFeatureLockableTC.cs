@@ -1,4 +1,5 @@
-﻿using TEFeatures.Interfaces;
+﻿using Antlr.Runtime;
+using TEFeatures.Interfaces;
 
 namespace TEFeatures
 {
@@ -14,8 +15,6 @@ namespace TEFeatures
 
         private int lockDifficulty = 3;
 
-        private bool isInitialised = false;
-
         public override void Init(TileEntityComposite _parent, TileEntityFeatureData _featureData)
         {
             DynamicProperties props = _featureData.Props;
@@ -27,35 +26,19 @@ namespace TEFeatures
         public override void SetBlockEntityData(BlockEntityData _blockEntityData)
         {
             base.SetBlockEntityData(_blockEntityData);
-            Initialize();
         }
 
-        public override void Read(PooledBinaryReader _br, TileEntity.StreamModeRead _eStreamMode, int _readVersion)
-        {
-            base.Read(_br, _eStreamMode, _readVersion);
-            isInitialised = _br.ReadBoolean();
-        }
-
-        public override void Write(PooledBinaryWriter _bw, TileEntity.StreamModeWrite _eStreamMode)
-        {
-            base.Write(_bw, _eStreamMode);
-            _bw.Write(isInitialised);
-        }
-
+        /// <summary>
+        /// Dumbed down version of the hidden method.
+        /// </summary>
         public new bool IsUserAllowed(PlatformUserIdentifierAbs _userIdentifier)
         {
             return IsOwner(_userIdentifier);
         }
 
-        private void Initialize()
+        public void InitializeLockStatus(float lockChance)
         {
-            if (isInitialised || LocalPlayerIsOwner())
-            {
-                return;
-            }
-
-            isInitialised = true;
-            SetLocked(true);
+            SetLocked(UnityEngine.Random.value < lockChance);
         }
     }
 }

@@ -26,13 +26,13 @@ namespace TEFeatures
                 Log.Error("Block with name " + base.Parent.TeData.Block.GetBlockName() + " does have a TEFeatureLockPickableTC but no ILockableTC feature");
             }
 
-            DynamicProperties props = _featureData.Props;
+            DynamicProperties parentProps = _parent.blockValue.Block.Properties;
 
-            props.ParseString(BlockSecureLoot.PropOnLockPickSuccessEvent, ref lockPickSuccessEvent);
-            props.ParseString(BlockSecureLoot.PropOnLockPickFailedEvent, ref lockPickFailedEvent);
-            if (props.Values.ContainsKey(Block.PropLockpickDowngradeBlock))
+            parentProps.ParseString(BlockSecureLoot.PropOnLockPickSuccessEvent, ref lockPickSuccessEvent);
+            parentProps.ParseString(BlockSecureLoot.PropOnLockPickFailedEvent, ref lockPickFailedEvent);
+            if (parentProps.Values.ContainsKey(Block.PropLockpickDowngradeBlock))
             {
-                string text = props.Values[Block.PropLockpickDowngradeBlock];
+                string text = parentProps.Values[Block.PropLockpickDowngradeBlock];
                 if (!string.IsNullOrEmpty(text))
                 {
                     lockpickDowngradeBlock = Block.GetBlockValue(text, false);
